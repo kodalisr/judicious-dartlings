@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anyone Can Cook!</title>
+
+  <!-- Bootstrap CSS and JS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- D3 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+
+  <!-- Custom stylesheet and font -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+  <!-- favicon.ico -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+  <!-- Custom JavaScript -->
+  <script src="static/js/data2.js" defer></script>
+  <script src="static/js/app2.js" defer></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    
+    <!-- Start of Navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">Anyone Can Cook
+            <img class="nav-ufo" src="static/images/favicon.ico">
+          </a>
+        </div>
+      </div>
+    </nav>
+    <!-- End of Navbar -->
+
+    <!-- Start of Main Display -->
+    <div class="hero text-center">
+    </div>
+    <!-- End of Main Display -->
+
+
+    
+    
+    <!-- Start of Data Container with Filter -->
+    <div class="container"> <!-- container -->   
+      <div class="bs-example">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card-deck">
+                  <div class="input-container">
+                    <input id="walk" class="radio-button" type="radio" name="radio" />
+                    <div class="card">
+                        <img src="/examples/images/thumbnail.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                  </div>
+                    <div class="card">
+                      <div class="input-container">
+                        <input id="walk" class="radio-button" type="radio" name="radio" />
+                        <img src="/examples/images/thumbnail.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Vestibulum id metus ac nisl bibendum nibh scelerisque non purus in suspendisse.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                       </div> 
+                    </div>
+                    <div class="card">
+                      <div class="input-container">
+                        <input id="walk" class="radio-button" type="radio" name="radio" />
+                        <img src="/examples/images/thumbnail.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Pulvinar leo id risus enim. Bibendum varius tincidunt pellentesque malesuada in.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!-- container -->     
+    <!-- End of Data Container with Filter -->
+    <button id="submit" type="submit" class="btn btn-default">Add to Grocery List</button>
+    <button id="submit" type="submit" class="btn btn-default">Return to Home Page</button>
+    <!-- Start of footer -->
+    <footer class="footer">
+      <span class="bottom">Anyone Can Cook</span>
+    </footer>
+    <!-- End of footer -->
+  </div>
+
+</body>
+
+</html>
