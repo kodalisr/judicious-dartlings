@@ -108,6 +108,7 @@ def queryRecipeEndpoint(query, cuisine):
 
 app = Flask(__name__)
 
+
 @app.route('/api/ingredients')
 def ingredients():
     
@@ -119,6 +120,7 @@ def ingredients():
     recipe_json = recipe_df.to_json(orient='records')
     
     return recipe_json
+
 
 # %%
     
