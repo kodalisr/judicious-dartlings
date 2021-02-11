@@ -11,7 +11,7 @@ from flask import Flask, request, render_template, jsonify
 ###################################################
 ##################################################
 
-def getIngredients(query, cuisine):
+def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes): 
     
     #######################################
     # consider separating this part into a function
@@ -20,35 +20,39 @@ def getIngredients(query, cuisine):
     # these will come from form controls
     query = query
     cuisine = cuisine
-    type_of_recipe = 'main course'
-    ranking = "2"
+    type_of_recipe = type_of_recipe
+    calories = calories
+    cookingMinutes = cookingMinutes
+    # ranking = "2"
     minCalories = "150"
     maxCalories = "1500"
-    minFat = "5"
-    maxFat = "100"
-    minProtein = "5"
-    maxProtein = "100"
-    minCarbs = "5"
-    maxCarbs = "100"
+    # minFat = "5"
+    # maxFat = "100"
+    # minProtein = "5"
+    # maxProtein = "100"
+    # minCarbs = "5"
+    # maxCarbs = "100"
     
     querystring = {"limitLicense": "<REQUIRED>",
         "offset": "0",
         "number": "10",
         "query": query,
         "cuisine": cuisine,
+        "cookingMinutes": cookingMinutes,                   # NEW
+        "calories": calories,                               # NEW
         #"includeIngredients": "onions, lettuce, tomato",
         #"excludeIngredients": "coconut, mango",
         #"intolerances": "peanut, shellfish",
         "type": type_of_recipe,
-        "ranking": ranking,
+        # "ranking": ranking,
         "minCalories": minCalories,
         "maxCalories": maxCalories,
-        "minFat": minFat,
-        "maxFat": maxFat,
-        "minProtein": minProtein,
-        "maxProtein": maxProtein,
-        "minCarbs": minCarbs,
-        "maxCarbs": maxCarbs,
+        # "minFat": minFat,
+        # "maxFat": maxFat,
+        # "minProtein": minProtein,
+        # "maxProtein": maxProtein,
+        # "minCarbs": minCarbs,
+        # "maxCarbs": maxCarbs,
         "instructionsRequired": "True",
         "addRecipeInformation": "True",
         "fillIngredients": "True",
@@ -138,7 +142,7 @@ def getIngredients(query, cuisine):
 ##################################################
 ##################################################
 
-def getRecipeMetadata(query, cuisine):
+def getRecipeMetadata(query, cuisine, type_of_recipe, calories, cookingMinutes): 
     
     #######################################
     # consider separating this part into a function
@@ -147,35 +151,39 @@ def getRecipeMetadata(query, cuisine):
     # these will come from form controls
     query = query
     cuisine = cuisine
-    type_of_recipe = 'main course'
-    ranking = "2"
+    type_of_recipe = type_of_recipe
+    calories = calories
+    cookingMinutes = cookingMinutes
+    # ranking = "2"
     minCalories = "150"
     maxCalories = "1500"
-    minFat = "5"
-    maxFat = "100"
-    minProtein = "5"
-    maxProtein = "100"
-    minCarbs = "5"
-    maxCarbs = "100"
+    # minFat = "5"
+    # maxFat = "100"
+    # minProtein = "5"
+    # maxProtein = "100"
+    # minCarbs = "5"
+    # maxCarbs = "100"
     
     querystring = {"limitLicense": "<REQUIRED>",
         "offset": "0",
         "number": "10",
         "query": query,
         "cuisine": cuisine,
+        "cookingMinutes": cookingMinutes,                   # NEW
+        "calories": calories,                               # NEW
         #"includeIngredients": "onions, lettuce, tomato",
         #"excludeIngredients": "coconut, mango",
         #"intolerances": "peanut, shellfish",
         "type": type_of_recipe,
-        "ranking": ranking,
+        # "ranking": ranking,
         "minCalories": minCalories,
         "maxCalories": maxCalories,
-        "minFat": minFat,
-        "maxFat": maxFat,
-        "minProtein": minProtein,
-        "maxProtein": maxProtein,
-        "minCarbs": minCarbs,
-        "maxCarbs": maxCarbs,
+        # "minFat": minFat,
+        # "maxFat": maxFat,
+        # "minProtein": minProtein,
+        # "maxProtein": maxProtein,
+        # "minCarbs": minCarbs,
+        # "maxCarbs": maxCarbs,
         "instructionsRequired": "True",
         "addRecipeInformation": "True",
         "fillIngredients": "True",
@@ -206,6 +214,7 @@ def getRecipeMetadata(query, cuisine):
             cooking_minutes = result['cookingMinutes']
             health_score = result['healthScore']
             source_url = result['sourceUrl']
+            # image = result['image']
             likes = result['aggregateLikes']                # Brooke modification / previously, it had been 'likes'
             # cuisine = result['cuisines'][0]                 # Brooke addition (my slicing may not work; my method used a df)
             calories_serving = result['calories']           # Brooke addition
@@ -243,6 +252,7 @@ def getRecipeMetadata(query, cuisine):
             'cooking_minutes': cooking_minutes,
             'health_score': health_score,
             'source_url': source_url,
+            # 'image': image,
             'likes': likes,
             'calories_serving': calories_serving,
             'carbohydrates_serving': carbohydrates_serving,
@@ -400,8 +410,11 @@ def ingredients():
     
     query = request.args.get('query')
     cuisine = request.args.get('cuisine')
+    cookingMinutes = request.args.get('cookingMinutes')
+    calories = request.args.get('calories')
+    type_of_recipe = request.args.get('type_of_recipe')
     
-    recipe_df = getIngredients(query, cuisine)
+    recipe_df = getIngredients(query, cuisine, cookingMinutes, type_of_recipe, calories)
     
     recipe_json = recipe_df.to_json(orient='records')
     
@@ -412,8 +425,11 @@ def recipemetadata():
     
     query = request.args.get('query')
     cuisine = request.args.get('cuisine')
+    cookingMinutes = request.args.get('cookingMinutes')
+    calories = request.args.get('calories')
+    type_of_recipe = request.args.get('type_of_recipe')
     
-    recipe_df = getRecipeMetadata(query, cuisine)
+    recipe_df = getRecipeMetadata(query, cuisine, cookingMinutes, type_of_recipe, calories)
     
     recipe_json = recipe_df.to_json(orient='records')
     
@@ -424,6 +440,7 @@ def recipequantities():
     
     query = request.args.get('query')
     cuisine = request.args.get('cuisine')
+    
     
     recipe_df = getQuantities(query, cuisine)
     
