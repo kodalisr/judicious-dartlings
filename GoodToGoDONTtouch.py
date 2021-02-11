@@ -334,11 +334,11 @@ def getQuantities(query, cuisine):
     }
     
     headers = {
-        'x-rapidapi-key': "9e12485098mshdefbf3ff62ef150p1717ddjsn1cf8f48a5741",
+        'x-rapidapi-key': # ADD API KEY,
         'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
         }
 
-    headers2 = 'aaef90d4d7604737bba08d638069d857'               # PartDeux Addition
+    headers2 = #add API Key!               # PartDeux Addition
     
     response = requests.get(url, headers=headers, params=querystring)
     
