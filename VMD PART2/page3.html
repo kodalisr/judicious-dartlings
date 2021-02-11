@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anyone Can Cook!</title>
+
+  <!-- Bootstrap CSS and JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
+  
+  <!-- D3 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+
+  <!-- Custom stylesheet and font -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+
+  <!-- favicon.ico -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+  <!-- Custom JavaScript -->
+  <script src="static/js/data.js" defer></script>
+  <script src="static/js/app.js" defer></script>
+</head>
+
+<body>
+  
+  <div class="wrapper">
+    
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+          <br>
+          <h1> 
+              Anyone Can Cook! 
+          </h1> 
+          <div class="jumbotron">
+          </div>
+    
+    <!-- Start of Data Container with Filter -->
+    <div class="container"> <!-- container -->     
+      <div class="row"> <!-- container row -->
+
+<!-- Start of data table -->
+<div class="col-md-10">
+  <div id="table-area" class="">
+    <table id="ufo-table" class="table table-striped">
+      <thead>
+        <tr>
+        <th class="table-head">Ingrdient List</th>
+        </tr>
+      </thead>
+      <tbody id='ufo-tbody'></tbody>
+    </table>
+  </div>
+</div>
+<!-- End of data table -->
+<button id="submit" type="submit" class="btn btn-default">Add to Grocery List</button>
+</div> <!-- container row -->
+</div> <!-- container -->     
+
+
+      </div> <!-- container row -->
+    </div> <!-- container -->     
+    <!-- End of Data Container with Filter -->
+    <button id="submit" type="submit" class="btn btn-default">Save to Final Grocery List</button>
+    <button id="submit" type="submit" class="btn btn-default">Return to Home Page</button>
+    <!-- Start of footer -->
+    <footer class="footer">
+      <span class="bottom">Anyone Can Cook</span>
+    </footer>
+    <!-- End of footer -->
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anyone Can Cook!</title>
+
+  <!-- Bootstrap CSS and JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
+  
+  <!-- D3 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+
+  <!-- Custom stylesheet and font -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+
+  <!-- favicon.ico -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+  <!-- Custom JavaScript -->
+  <script src="static/js/data.js" defer></script>
+  <script src="static/js/app.js" defer></script>
+</head>
+
+<body>
+  
+  <div class="wrapper">
+    
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+          <br>
+          <h1> 
+              Anyone Can Cook! 
+          </h1> 
+          <div class="jumbotron">
+          </div>
+    
+    <!-- Start of Data Container with Filter -->
+    <div class="container"> <!-- container -->     
+      <div class="row"> <!-- container row -->
+
+        <!-- Start of data table -->
+        <div class="col-md-6">
+          <div id="table-area" class="">
+            <table id="ufo-table" class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="table-head">Ingredient</th>
+                  <th class="table-head">Minimum Price</th>
+                  <th class="table-head">Maximum Price</th>
+                </tr>
+              </thead>
+              <tbody id='ufo-tbody'></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+        <div class="card bg-royalblue card border-secondary">
+          <div class="card-header">
+            <h6 class="card-title text-white">Demographic Info</h6>
+          </div>
+          <div id="sample-metadata" class="card-body bg-light"></div>
+        </div>
+      </div>
+      </div> <!-- container row -->
+    </div> <!-- container -->     
+    <!-- End of Data Container with Filter -->
+    <button window.location = "mailto:example@example.com" target="_blank" class="btn btn-primary">Email My Recipes</button>
+    <button href="mailto:some@email.com" target="_blank" class="btn btn-primary">Email My Grocery List</button>
+    <button id="submit" type="submit" href="index.html" class="btn btn-default">Return to Home Page</button>
+    <!-- Start of footer -->
+    <footer class="footer">
+      <span class="bottom">Anyone Can Cook</span>
+    </footer>
+    <!-- End of footer -->
+  </div>
+
+</body>
+
+</html>
