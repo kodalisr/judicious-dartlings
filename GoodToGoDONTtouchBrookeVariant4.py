@@ -1,6 +1,13 @@
 import requests
 import pandas as pd
+import json
+import sqlalchemy
+from sqlalchemy import create_engine
 from flask import Flask, request, render_template, jsonify
+import pymysql
+pymysql.install_as_MySQLdb()
+from config import remote_db_endpoint, remote_db_port, remote_db_name, remote_db_user, remote_db_pwd
+from config import x_rapidapi_key, x_rapidapi_host, spoonacular_API
 
 
 ###################################################
@@ -58,9 +65,10 @@ def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes):
         "fillIngredients": "True",
     }
     
+    #NEEDS INDIVIDUAL API KEY
     headers = {
-        'x-rapidapi-key': "9e12485098mshdefbf3ff62ef150p1717ddjsn1cf8f48a5741",
-        'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+        'x-rapidapi-key': x_rapidapi_key,
+        'x-rapidapi-host': x_rapidapi_host
         }
     
     response = requests.get(url, headers=headers, params=querystring)
@@ -190,8 +198,8 @@ def getRecipeMetadata(query, cuisine, type_of_recipe, calories, cookingMinutes):
     }
     
     headers = {
-        'x-rapidapi-key': "9e12485098mshdefbf3ff62ef150p1717ddjsn1cf8f48a5741",
-        'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+        'x-rapidapi-key': x_rapidapi_key,
+        'x-rapidapi-host': x_rapidapi_host
         }
     
     response = requests.get(url, headers=headers, params=querystring)
@@ -334,11 +342,11 @@ def getQuantities(query, cuisine):
     }
     
     headers = {
-        'x-rapidapi-key': "9e12485098mshdefbf3ff62ef150p1717ddjsn1cf8f48a5741",
-        'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+        'x-rapidapi-key': x_rapidapi_key,
+        'x-rapidapi-host': x_rapidapi_host
         }
 
-    headers2 = 'aaef90d4d7604737bba08d638069d857'               # PartDeux Addition
+    headers2 = spoonacular_API               # PartDeux Addition
     
     response = requests.get(url, headers=headers, params=querystring)
     
@@ -395,15 +403,44 @@ def getQuantities(query, cuisine):
 
 
 
+###################################################
+#####################
+#####################
+#   Connect to Database
+##################################################
+##################################################
+##################################################
 
+cloud_engine = create_engine(f"mysql://{remote_db_user}:{remote_db_pwd}@{remote_db_endpoint}:{remote_db_port}/{remote_db_name}")
 
+cloud_conn = cloud_engine.connect()
 
+#%% Querying the database
+query = '''
+        SELECT DISTINCT
+            ingredient,
+            price,
+            title,
+            size
+        FROM
+            products_subset
+        '''
 
+products_subset = pd.read_sql(query, cloud_conn)
+
+products_subset.head()
+
+cloud_conn.close()
 
 
 
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    
+    return render_template('index.html')
 
 @app.route('/api/ingredients')
 def ingredients():
@@ -429,7 +466,11 @@ def recipemetadata():
     calories = request.args.get('calories')
     type_of_recipe = request.args.get('type_of_recipe')
     
+    print(query, cuisine, cookingMinutes, type_of_recipe, calories)
+
     recipe_df = getRecipeMetadata(query, cuisine, cookingMinutes, type_of_recipe, calories)
+
+    
     
     recipe_json = recipe_df.to_json(orient='records')
     
@@ -447,6 +488,11 @@ def recipequantities():
     recipe_json = recipe_df.to_json(orient='records')
     
     return recipe_json
+
+@app.route('/ingredientsWithPrices')
+def productsFromScrape():
+    products_json = products_subset.to_json(orient='records')
+    return(products_json)
 
 if __name__ == '__main__':
     app.run(debug=True)

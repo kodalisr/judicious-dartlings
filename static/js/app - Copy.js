@@ -5,6 +5,16 @@ var tableData = data;
 // Identify the table and tbody
 var tbody = d3.select('#ufo-tbody');
 
+// test
+
+//d3.json("/api/recipemetadata").then((recipes) => {
+   //console.log(recipes)
+//});
+
+d3.json("/api/recipemetadata", function(recipes){
+    console.log(recipes)
+});
+
 // Create function to generate and populate the table
 function buildTable(tableData){
 
@@ -15,13 +25,15 @@ function buildTable(tableData){
 ////logic: if checked -- identify the status as checked and if not set status to unchecked; add a status true or flase to records pulled from API
 
             row.append('td').append('input').attr("type", "checkbox");    
-            row.append('td').text(record['datetime']);
-            row.append('td').text(record['city']);
-            row.append('td').text(record['state']);
-            row.append('td').text(record['country'])    
-            row.append('td').text(record['shape']);
-            row.append('td').text(record['durationMinutes']);
-            row.append('td').text(record['comments']);
+            row.append('td').text(record['recipe_id']);
+            row.append('td').text(record['recipe_title']);
+            row.append('td').text(record['cooking_minutes']);
+            row.append('td').text(record['health_score'])    
+            row.append('td').text(record['source_url']);
+            row.append('td').text(record['likes']);
+            row.append('td').text(record['carbohydrates_serving']);
+            row.append('td').text(record['servings']);
+            row.append('td').text(record['calories_serving']);
 
         /* // Use Object.values as an alternate method
             Object.values(record).forEach(col => {
@@ -48,19 +60,19 @@ function filterTable(){
     var filteredData = tableData;
 
     // capture value for all search fields */
-    var datetime = d3.select('#datetime').property('value');
-    var city = d3.select('#city').property('value');
-    var state = d3.select('#state').property('value');
-    var country = d3.select('#country').property('value');
-    var shape = d3.select('#shape').property('value');
+    var query = d3.select('#query').property('value');
+    var cusine = d3.select('#cusine').property('value');
+    var type_of_recipe = d3.select('#type_of_recipe').property('value');
+    var calories = d3.select('#calories').property('value');
+    var cookingMinutes = d3.select('#cookingMinutes').property('value');
 
     // Build an object of fields to run through 
     var filterFields = {
-        'datetime': datetime,
-        'city': city,
-        'state': state, 
-        'country': country,
-        'shape': shape
+        'query': query,
+        'cuisine': cusine,
+        'type_of_recipe': type_of_recipe, 
+        'calories': calories,
+        'cookingMinutes': cookingMinutes
     }
 
     // Remove empty keys from the list of filters to search
@@ -89,11 +101,11 @@ function filterTable(){
 
 // Identify web elements on the page
 btn = d3.select('#filter-btn');
-datetimefield = d3.select('#datetime')
+queryfield = d3.select('#query')
 
 // Add event listeners to the web elements
 btn.on('click', filterTable);
-datetimefield.on('change', filterTable);
+queryfield.on('change', filterTable);
 
 // Attach an event listener to the fields attached to the .filter class 
 d3.selectAll('.filter').on('change', filterTable);

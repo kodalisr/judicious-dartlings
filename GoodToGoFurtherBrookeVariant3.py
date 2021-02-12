@@ -22,16 +22,10 @@ def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes):
     cuisine = cuisine
     type_of_recipe = type_of_recipe
     calories = calories
-    cookingMinutes = cookingMinutes
-    # ranking = "2"
-    minCalories = "150"
-    maxCalories = "1500"
-    # minFat = "5"
-    # maxFat = "100"
-    # minProtein = "5"
-    # maxProtein = "100"
-    # minCarbs = "5"
-    # maxCarbs = "100"
+    cookingMinutes = cookingMinutes    
+    minCalories = "0"
+    maxCalories = "4000"
+    
     
     querystring = {"limitLicense": "<REQUIRED>",
         "offset": "0",
@@ -39,20 +33,10 @@ def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes):
         "query": query,
         "cuisine": cuisine,
         "cookingMinutes": cookingMinutes,                   # NEW
-        "calories": calories,                               # NEW
-        #"includeIngredients": "onions, lettuce, tomato",
-        #"excludeIngredients": "coconut, mango",
-        #"intolerances": "peanut, shellfish",
-        "type": type_of_recipe,
-        # "ranking": ranking,
+        "calories": calories,                               # NEW        
+        "type": type_of_recipe,        
         "minCalories": minCalories,
-        "maxCalories": maxCalories,
-        # "minFat": minFat,
-        # "maxFat": maxFat,
-        # "minProtein": minProtein,
-        # "maxProtein": maxProtein,
-        # "minCarbs": minCarbs,
-        # "maxCarbs": maxCarbs,
+        "maxCalories": maxCalories,        
         "instructionsRequired": "True",
         "addRecipeInformation": "True",
         "fillIngredients": "True",

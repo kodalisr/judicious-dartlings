@@ -11,7 +11,7 @@ from flask import Flask, request, render_template, jsonify
 ###################################################
 ##################################################
 
-def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes): 
+def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes, minCalories, maxCalories): 
     
     #######################################
     # consider separating this part into a function
@@ -24,8 +24,8 @@ def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes):
     calories = calories
     cookingMinutes = cookingMinutes
     # ranking = "2"
-    minCalories = "150"
-    maxCalories = "1500"
+    minCalories = minCalories
+    maxCalories = maxCalories
     # minFat = "5"
     # maxFat = "100"
     # minProtein = "5"
@@ -413,8 +413,10 @@ def ingredients():
     cookingMinutes = request.args.get('cookingMinutes')
     calories = request.args.get('calories')
     type_of_recipe = request.args.get('type_of_recipe')
+    minCalories = request.args.get('minCalories')
+    maxCalories = request.args.get('maxCalories')
     
-    recipe_df = getIngredients(query, cuisine, cookingMinutes, type_of_recipe, calories)
+    recipe_df = getIngredients(query, cuisine, cookingMinutes, type_of_recipe, calories, minCalories, maxCalories)
     
     recipe_json = recipe_df.to_json(orient='records')
     
