@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anyone Can Cook!</title>
+
+  <!-- Bootstrap CSS and JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+  <!-- jQuery 
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  -->
+
+  <!-- D3 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+
+  <!-- Custom stylesheet and font -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+
+  <!-- favicon.ico -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon1.ico') }}">
+
+  <!-- Custom JavaScript -->
+  <script src="static/js/data.js" defer></script>
+  <script src="static/js/app.js" defer></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+          <br>
+          <h1> 
+              Anyone Can Cook! 
+          </h1> 
+          <div class="jumbotron">
+          </div>
+          <h3>
+            New to cooking? Looking to spice up your weekly menus? 
+            <br>
+            <br>
+            Anyone Can Cook is here to help you pick exciting recipes and build your grocery list for the week. Start searching below!
+            <br>
+            <br>
+            Start finding some recipes now by entering some search terms!
+    
+    <!-- Start of Data Container with Filter -->
+    <div class="container"> <!-- container -->     
+      <div class="row"> <!-- container row -->
+
+        <!-- Start of filter panel -->
+        <div class="col-md-2">
+          <aside class="filters">
+            <div class="panel panel-default">
+              <div class="panel-heading">Filter Search</div>
+              <div class="panel-body">
+                <form id="filter-form">
+                  <div class="form-group">
+                    <ul class="list-group" id="filters">
+                    <li class="filter list-group-item">
+                      <label for="query">Item</label>
+                      <input class="form-control" id="query" type="text" placeholder="e.g. pasta">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="cuisine">Cuisine</label>
+                      <select id="cuisine">
+                      <option value="&">--choose one--</option>
+                      <option value="American">American</option>
+                      <option value="African">African</option>
+                      <option value="British">British</option>
+                      <option value="Cajun">Cajun</option>
+                      <option value="Caribbean">Caribbean</option>
+                      <option value="Eastern European">Eastern European</option>
+                      <option value="European">European</option>
+                      <option value="French">French</option>
+                      <option value="German">German</option>
+                      <option value="Greek">Greek</option>
+                      <option value="Indian">Indian</option>
+                      <option value="Irish">Irish</option>
+                      <option value="Italian">Italian</option>
+                      <option value="Japanese">Japanese</option>
+                      <option value="Jewish">Jewish</option>
+                      <option value="Korean">Korean</option>
+                      <option value="Latin American">Latin American</option>
+                      <option value="Mediterranean">Mediterranean</option>
+                      <option value="Middle Eastern">Middle Eastern</option>
+                      <option value="Nordic">Nordic</option>
+                      <option value="Southern">Southern</option>
+                      <option value="Spanish">Spanish</option>
+                      <option value="Thai">Thai</option>
+                      <option value="Vietnamese">Vietnamese</option>
+                      </select>
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="calories">Calories</label>
+                      <input class="form-control" id="calories" type="text" placeholder="e.g. 500">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="type_of_recipe">Type of Dish</label>
+                      <select id="type_of_recipe">
+                      <option value="&">--choose one--</option>
+                      <option value="maincourse">main course</option>                      
+                      <option value="sidedish">side dish</option>
+                      <option value="dessert">dessert</option>
+                      <option value="appetizer">appetizer</option>
+                      <option value="salad">salad</option>
+                      <option value="bread">bread</option>
+                      <option value="breakfast">breakfast</option>
+                      <option value="soup">soup</option>
+                      <option value="beverage">beverage</option>
+                      <option value="sauce">sauce</option>
+                      <option value="marinade">marinade</option>
+                      <option value="fingerfood">fingerfood</option>
+                      <option value="snack">snack</option>
+                      <option value="drink">drink</option>
+                      </select>
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="cookingMinutes">Ready in Minutes</label>
+                      <input class="form-control" id="cookingMinutes" type="text" placeholder="e.g. 30">
+                    </li>
+                    </ul>
+                  </div>
+                  <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                  <button id="reset-btn" type="button" class="btn btn-default">Reset Selections</button>
+                </form>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <!-- End of filter panel -->
+
+        <!-- Start of data table -->
+        <div class="col-md-10">
+          <div id="table-area" class="">
+            <table id="ufo-table" class="table table-striped">
+              <thead>
+                <tr>
+                <th class="table-head">Recipe ID</th>
+                <th class="table-head">Recipe Title</th>
+                <th class="table-head">Recipe Link</th>
+                <th class="table-head">Likes</th>
+                <th class="table-head">Health Score</th>
+                <th class="table-head">Calories</th>
+                <th class="table-head">Carbs</th>
+                <th class="table-head">Servings</th>
+                <th class="table-head">Ready in Minutes</th>
+                </tr>
+              </thead>
+              <tbody id='ufo-tbody'></tbody>
+            </table>
+          </div>
+        </div>
+        <!-- End of data table -->
+        <button id="submit-btn" type="submit" class="btn btn-default">Add to Grocery List</button>
+      </div> <!-- container row -->
+    </div> <!-- container -->     
+    <!-- End of Data Container with Filter -->
+
+    <!-- Start of footer -->
+    <footer class="footer">
+      <span class="bottom">Anyone Can Cook</span>
+    </footer>
+    <!-- End of footer -->
+  </div>
+
+</body>
+
+</html>
