@@ -16,31 +16,64 @@ d3.json("/api/recipemetadata", function(recipes){
 });
 
 // Create function to generate and populate the table
-function buildTable(tableData){
+function buildTable() { 
 
-    // Dynamically build table
-    tableData.forEach(record => {
+    tbody.html('');
+
+    d3.json("/api/recipemetadata", function(recipes){
+        recipes.forEach(record => {
         var row = tbody.append('tr');
-
 ////logic: if checked -- identify the status as checked and if not set status to unchecked; add a status true or flase to records pulled from API
-
             row.append('td').append('input').attr("type", "checkbox");    
             row.append('td').text(record['recipe_id']);
             row.append('td').text(record['recipe_title']);
-            row.append('td').text(record['cooking_minutes']);
-            row.append('td').text(record['health_score'])    
             row.append('td').text(record['source_url']);
             row.append('td').text(record['likes']);
+            row.append('td').text(record['health_score']);
+            row.append('td').text(record['calories_serving']);
             row.append('td').text(record['carbohydrates_serving']);
             row.append('td').text(record['servings']);
-            row.append('td').text(record['calories_serving']);
+            row.append('td').text(record['cooking_minutes']);
+            console.log(record)
+        }
+        )
+    }
+    )
+}
 
-        /* // Use Object.values as an alternate method
-            Object.values(record).forEach(col => {
-                row.append('td').text(col);        
-            });
-        */
-    })
+
+
+function refreshTable(data) {
+
+    console.log('----- IN REFRESH TAB LE ')
+    console.log(data);
+
+
+    tbody.html('');
+
+
+    data.forEach(record => {
+    var row = tbody.append('tr');
+////logic: if checked -- identify the status as checked and if not set status to unchecked; add a status true or flase to records pulled from API
+        row.append('td').append('input').attr("type", "checkbox");    
+        row.append('td').text(record['recipe_id']);
+        row.append('td').text(record['recipe_title']);
+        row.append('td').text(record['source_url']);
+        row.append('td').text(record['likes']);
+        row.append('td').text(record['health_score']);
+        row.append('td').text(record['calories_serving']);
+        row.append('td').text(record['carbohydrates_serving']);
+        row.append('td').text(record['servings']);
+        row.append('td').text(record['cooking_minutes']);
+        console.log(record)
+    });
+    
+
+    // clear existing tbody
+    // tbody
+    // loop through the filtered data to populate the tbody
+
+
 }
 
 /// This would updated checked data (as checked/unchecked) to table when a second search is initiated, as well as, store in variable, 
@@ -93,9 +126,13 @@ function filterTable(){
     console.log('----filterFields----')
     console.log(filterFields)
 
-
-    d3.json(`/api/recipemetadata?query=${query}&cuisine=${cuisine}`, function(data){
+       
+    d3.json(`/api/recipemetadata?query=${query}&cuisine=${cuisine}&cookingMinutes=${cookingMinutes}&calories=${calories}&type_of_recipe${type_of_recipe}&`, function(data){
         console.log(data);
+
+        refreshTable(data);
+
+        // call function to refresh table?
     });
 
     // d3.json(`/api/recipemetadata?query=${query}&cuisine=${cuisine}`).then(data => {
@@ -120,32 +157,32 @@ function filterTable(){
     filterFieldsRequest.join("")
     */
 
-    filterFieldsRequest = ['pasta', 'Italian', '&', '&', '&']
-    console.log(filterFieldsRequest)
+    // filterFieldsRequest = ['pasta', 'Italian', '&', '&', '&']
+    // console.log(filterFieldsRequest)
 
-    var returns_metadata = request.args.get(filterFieldsRequest)
-    console.log('---returns_metadata---')
-    console.log(returns_metadata)
+    // var returns_metadata = request.args.get(filterFieldsRequest)
+    // console.log('---returns_metadata---')
+    // console.log(returns_metadata)
     
 
 
 
     // Loop through each of the filter keys and return records from filteredData that match 
-    Object.entries(filterFields).forEach(([key, value]) => {
-        // Continue to refine the filteredData array 
-        filteredData = filteredData.filter(row => row[key] == value);
-    });
+    // Object.entries(filterFields).forEach(([key, value]) => {
+    //     // Continue to refine the filteredData array 
+    //     filteredData = filteredData.filter(row => row[key] == value);
+    // });
 
-    console.log('----filteredData----')
-    console.log(filteredData)
+    // console.log('----filteredData----')
+    // console.log(filteredData)
 
     // Clear out the tbody
-    tbody.html('');
+    
 
 ////  then add checked rows back in
 
     // Rebuild the filtered table using the buildTable function 
-    buildTable(filteredData);    
+    // buildTable(filteredData);    
 }
 
 // Clear out input fields in the Filter Form, wipe the Table, and rebuild the Table with pristine original data
@@ -156,6 +193,14 @@ function formReset() {
 };
 
 
+d3.select("checkbox").on("click", function() {
+    var boxes = d3.selectAll("input.checkbox:checked");
+    boxes.each(function() {
+      console.log(this.value)
+    })
+  });
+
+// create a function to add values from checked boxes to add to grocery list
 
 
 
@@ -180,4 +225,5 @@ calories.on('change', filterTable);
 cookingminutesfield.on('change', filterTable);
 
 // Call the function to initially load the table
-buildTable(tableData);
+buildTable();
+
