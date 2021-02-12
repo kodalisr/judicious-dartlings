@@ -101,7 +101,7 @@ def getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes):
             
         except Exception as e:
             print('--- error with something ---')
-            print(result.keys())
+            print(e)
             continue 
 
         instruction_steps = analyzedInstructions[0]['steps']        # Brooke addition
@@ -163,8 +163,8 @@ def getRecipeMetadata(query, cuisine, type_of_recipe, calories, cookingMinutes):
     calories = calories
     cookingMinutes = cookingMinutes
     # ranking = "2"
-    minCalories = "150"
-    maxCalories = "1500"
+    minCalories = "0"
+    maxCalories = "15000"
     # minFat = "5"
     # maxFat = "100"
     # minProtein = "5"
@@ -196,6 +196,7 @@ def getRecipeMetadata(query, cuisine, type_of_recipe, calories, cookingMinutes):
         "addRecipeInformation": "True",
         "fillIngredients": "True",
     }
+    print(querystring)
     
     headers = {
         'x-rapidapi-key': x_rapidapi_key,
@@ -451,7 +452,7 @@ def ingredients():
     calories = request.args.get('calories')
     type_of_recipe = request.args.get('type_of_recipe')
     
-    recipe_df = getIngredients(query, cuisine, cookingMinutes, type_of_recipe, calories)
+    recipe_df = getIngredients(query, cuisine, type_of_recipe, calories, cookingMinutes)
     
     recipe_json = recipe_df.to_json(orient='records')
     
@@ -468,9 +469,7 @@ def recipemetadata():
     
     print(query, cuisine, cookingMinutes, type_of_recipe, calories)
 
-    recipe_df = getRecipeMetadata(query, cuisine, cookingMinutes, type_of_recipe, calories)
-
-    
+    recipe_df = getRecipeMetadata(query, cuisine, type_of_recipe, calories, cookingMinutes)    
     
     recipe_json = recipe_df.to_json(orient='records')
     

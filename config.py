@@ -1,4 +1,4 @@
-x_rapidapi_key = "9e12485098mshdefbf3ff62ef150p1717ddjsn1cf8f48a5741"
+x_rapidapi_key = "651aaa93a5msh16007951fa19705p181cc7jsnf87c2b4a7e46"
 x_rapidapi_host = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
 
 spoonacular_API = "aaef90d4d7604737bba08d638069d857"
